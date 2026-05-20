@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Quiet Crypt - Big Data Security Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Elegant Serif & Minimal Sans-Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #FAF6F0 0%, #FFF0F2 50%, #F5EDFA 100%);
+            color: #3C2D35;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .glass-dark {
+            background: rgba(60, 45, 53, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .soft-shadow {
+            box-shadow: 0 12px 40px -10px rgba(243, 182, 190, 0.25);
+        }
+        .soft-shadow-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .soft-shadow-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 48px -6px rgba(243, 182, 190, 0.35);
+        }
+        /* Custom delicate scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E8C5C8;
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D8A5A9;
+        }
+        /* Sparkle animation */
+        @keyframes floatSparkle {
+            0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(-10px) scale(1.1) rotate(15deg); opacity: 1; }
+        }
+        .sparkle-slow {
+            animation: floatSparkle 4s ease-in-out infinite;
+        }
+        .sparkle-delay {
+            animation: floatSparkle 5s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+
+        /* Welcome Loading Screen CSS Keyframes */
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3)); }
+        }
+        @keyframes textReveal {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .welcome-pulse {
+            animation: subtlePulse 3s ease-in-out infinite;
+        }
+        .welcome-text {
+            animation: textReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-[#E8C5C8] selection:text-[#3C2D35]">
+
+    <!-- Welcome Loading Overlay Screen -->
+    <div id="welcome-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center transition-all duration-1000 ease-out" style="background: linear-gradient(135deg, #FAF6F0 0%, #FFF0F2 50%, #F5EDFA 100%);">
+        <div class="flex flex-col items-center space-y-6 max-w-sm text-center px-6">
+            <!-- Loading Icon -->
+            <div class="welcome-pulse w-16 h-16 rounded-full bg-white flex items-center justify-center border border-[#E8C5C8] shadow-sm relative overflow-hidden">
+                <i class="fa-solid fa-feather-pointed text-[#A87E82] text-2xl"></i>
+            </div>
+            
+            <!-- Slow elegant text fade-in -->
+            <div class="welcome-text opacity-0 space-y-2">
+                <span class="text-[9px] uppercase tracking-[0.3em] font-medium text-[#A87E82] block">Intelligent Living</span>
+                <h1 class="text-3xl font-light text-[#3C2D35] tracking-wide leading-none">The Security Atelier</h1>
+                <div class="w-12 h-[1px] bg-[#E8C5C8] mx-auto my-3"></div>
+                <p class="text-[10px] text-gray-400 font-light tracking-wider uppercase">Loading Exhibition...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative floating ambient elements -->
+    <div class="absolute top-12 left-[8%] w-8 h-8 text-[#E8C5C8] opacity-60 sparkle-slow pointer-events-none">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    </div>
+    <div class="absolute top-[30%] right-[5%] w-10 h-10 text-[#D0B3D6] opacity-40 sparkle-delay pointer-events-none">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    </div>
+    <div class="absolute bottom-[20%] left-[3%] w-7 h-7 text-[#EAD8C3] opacity-50 sparkle-slow pointer-events-none">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    </div>
+
+    <!-- Soft Glassmorphism Header Nav -->
+    <header class="sticky top-0 z-50 transition-all duration-300 w-full px-4 sm:px-8 py-3 bg-white/35 backdrop-blur-md border-b border-white/40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchTab('home')">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#FFF0F2] to-[#EAD8C3] flex items-center justify-center border border-[#E8C5C8] shadow-sm relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/20 hover:opacity-0 transition-opacity"></div>
+                    <i class="fa-solid fa-feather-pointed text-[#A87E82] text-md group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] uppercase tracking-[0.25em] font-medium text-[#A87E82] block">Intelligent Living</span>
+                    <h1 class="text-xl font-bold text-[#3C2D35] tracking-wide leading-none">The Security Atelier</h1>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Switch -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-[#3C2D35] hover:text-[#A87E82] focus:outline-none p-1.5 transition">
+                <i id="menu-icon" class="fa-solid fa-bars-staggered text-xl"></i>
+            </button>
+
+            <!-- Nav Links Desktop -->
+            <nav class="hidden md:flex items-center space-x-1.5">
+                <button onclick="switchTab('home')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-[#A87E82] bg-white/75 border border-[#E8C5C8]/40 shadow-sm" data-tab="home">Home</button>
+                <button onclick="switchTab('infrastructure')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-gray-500 hover:text-[#3C2D35] hover:bg-white/45" data-tab="infrastructure">Infrastructure</button>
+                <button onclick="switchTab('privacy')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-gray-500 hover:text-[#3C2D35] hover:bg-white/45" data-tab="privacy">Privacy</button>
+                <button onclick="switchTab('integrity')" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-gray-500 hover:text-[#3C2D35] hover:bg-white/45" data-tab="integrity">Integrity</button>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu Slider -->
+        <div id="mobile-menu" class="hidden md:hidden mt-3 rounded-2xl glass p-4 space-y-2.5 transition-all duration-300">
+            <button onclick="switchTab('home'); toggleMobileMenu()" class="w-full text-left px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase text-[#A87E82] block bg-white/70" data-mobile-tab="home">Home</button>
+            <button onclick="switchTab('infrastructure'); toggleMobileMenu()" class="w-full text-left px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase text-gray-500 hover:text-[#3C2D35] block" data-mobile-tab="infrastructure">Infrastructure & Value Chain</button>
+            <button onclick="switchTab('privacy'); toggleMobileMenu()" class="w-full text-left px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase text-gray-500 hover:text-[#3C2D35] block" data-mobile-tab="privacy">Privacy Infringement</button>
+            <button onclick="switchTab('integrity'); toggleMobileMenu()" class="w-full text-left px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase text-gray-500 hover:text-[#3C2D35] block" data-mobile-tab="integrity">Integrity & Access Control</button>
+        </div>
+    </header>
+
+    <!-- Main Exhibition Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative z-10">
+
+        <!-- ================= SECTION 1: HERO & HOME ================= -->
+        <section id="tab-home" class="space-y-16 block">
+            
+            <!-- Hero Spot -->
+            <div class="relative rounded-[2.5rem] p-8 sm:p-16 border border-white/60 overflow-hidden glass soft-shadow flex flex-col items-center text-center">
+                <!-- Gentle radial blush circle backgrounds -->
+                <div class="absolute -top-12 -left-12 w-64 h-64 bg-[#FFF0F2] rounded-full filter blur-3xl pointer-events-none opacity-80"></div>
+                <div class="absolute -bottom-16 -right-16 w-80 h-80 bg-[#F5EDFA] rounded-full filter blur-3xl pointer-events-none opacity-80"></div>
+                
+                <div class="relative z-10 max-w-3xl space-y-6 flex flex-col items-center">
+                    <span class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full text-xs font-medium bg-[#FFF0F2] text-[#A87E82] border border-[#E8C5C8]/60 uppercase tracking-widest shadow-sm">
+                        <i class="fa-regular fa-sparkles text-[10px] text-[#D4AF37]"></i>
+                        <span>Data Research Exhibition</span>
+                    </span>
+                    
+                    <h2 class="text-4xl sm:text-6xl md:text-7xl text-[#3C2D35] leading-none font-light italic">
+                        Securing the <span class="font-normal not-italic text-transparent bg-clip-text bg-gradient-to-r from-[#8E5E65] to-[#A87E82]">Digital Canvas</span>
+                    </h2>
+                    
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed max-w-2xl font-light">
+                        Big data structures offer organizations incredible wisdom, yet create delicate vulnerabilities. Step into our conceptual space exploring infrastructure gaps, personal privacy trade-offs, and dynamic stream validation logic.
+                    </p>
+
+                    <!-- Elegant Call-To-Action buttons -->
+                    <div class="flex flex-wrap justify-center gap-4 pt-4">
+                        <button onclick="switchTab('infrastructure')" class="bg-[#A87E82] hover:bg-[#8E5E65] text-white font-medium text-xs uppercase tracking-widest px-8 py-3.5 rounded-full shadow-lg shadow-[#A87E82]/20 transition-all duration-300 hover:scale-[1.02]">
+                            Explore Infographics
+                        </button>
+                        <a href="#quick-digest" class="bg-white/80 hover:bg-white text-gray-600 border border-[#E8C5C8]/40 font-medium text-xs uppercase tracking-widest px-8 py-3.5 rounded-full transition duration-300">
+                            The Digest Abstract
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Three Pillars Grid with Soft Styling -->
+            <div class="space-y-8">
+                <div class="text-center max-w-2xl mx-auto space-y-3">
+                    <span class="text-[11px] uppercase tracking-[0.2em] text-[#A87E82] font-semibold block">— Structural Foundations —</span>
+                    <h3 class="text-3xl sm:text-4xl font-normal text-[#3C2D35]">Three Pillars of Big Data Vulnerabilities</h3>
+                    <p class="text-xs text-gray-500 max-w-md mx-auto">Click into each segment to unwrap deep procedural metrics and soft simulations.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Column 1 -->
+                    <div class="glass p-8 rounded-3xl border border-white/50 hover:border-[#E8C5C8]/60 transition-all duration-300 hover:translate-y-[-6px] flex flex-col justify-between group soft-shadow">
+                        <div class="space-y-5">
+                            <div class="w-11 h-11 rounded-full bg-[#FFF0F2] text-[#A87E82] flex items-center justify-center border border-[#E8C5C8]/40 group-hover:bg-[#A87E82] group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-compass-drafting text-md"></i>
+                            </div>
+                            <h4 class="text-2xl font-normal text-[#3C2D35] group-hover:text-[#A87E82] transition-colors">Infrastructure & Value Chain</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed font-light">
+                                Broad partner ecosystems, third-party storage nodes, and massive cloud relays create sprawling networks susceptible to systemic intrusion points.
+                            </p>
+                        </div>
+                        <button onclick="switchTab('infrastructure')" class="text-[10px] uppercase tracking-widest font-bold text-[#A87E82] hover:text-[#8E5E65] transition-colors mt-8 flex items-center space-x-1.5 self-start">
+                            <span>Step Showcase</span>
+                            <i class="fa-solid fa-arrow-right-long text-[9px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="glass p-8 rounded-3xl border border-white/50 hover:border-[#E8C5C8]/60 transition-all duration-300 hover:translate-y-[-6px] flex flex-col justify-between group soft-shadow">
+                        <div class="space-y-5">
+                            <div class="w-11 h-11 rounded-full bg-[#FAF0FF] text-[#9D76A6] flex items-center justify-center border border-[#D0B3D6]/40 group-hover:bg-[#9D76A6] group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-eye-slash text-md"></i>
+                            </div>
+                            <h4 class="text-2xl font-normal text-[#3C2D35] group-hover:text-[#9D76A6] transition-colors">Privacy Infringement</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed font-light">
+                                Massive customer profiles hold highly sensitive parameters. Balancing algorithmic research utility against personal security requires complex preservation systems.
+                            </p>
+                        </div>
+                        <button onclick="switchTab('privacy')" class="text-[10px] uppercase tracking-widest font-bold text-[#9D76A6] hover:text-[#7A5682] transition-colors mt-8 flex items-center space-x-1.5 self-start">
+                            <span>Interactive Slider</span>
+                            <i class="fa-solid fa-arrow-right-long text-[9px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="glass p-8 rounded-3xl border border-white/50 hover:border-[#E8C5C8]/60 transition-all duration-300 hover:translate-y-[-6px] flex flex-col justify-between group soft-shadow">
+                        <div class="space-y-5">
+                            <div class="w-11 h-11 rounded-full bg-[#F0FAF7] text-[#69A297] flex items-center justify-center border border-[#A4D4CC]/40 group-hover:bg-[#69A297] group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-signature text-md"></i>
+                            </div>
+                            <h4 class="text-2xl font-normal text-[#3C2D35] group-hover:text-[#69A297] transition-colors">Integrity & Access Control</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed font-light">
+                                Safeguarding rapid data streams and non-relational storage targets from malicious alterations. Failing to maintain dynamic filters leads to brand and customer fallout.
+                            </p>
+                        </div>
+                        <button onclick="switchTab('integrity')" class="text-[10px] uppercase tracking-widest font-bold text-[#69A297] hover:text-[#4B7970] transition-colors mt-8 flex items-center space-x-1.5 self-start">
+                            <span>Live Console</span>
+                            <i class="fa-solid fa-arrow-right-long text-[9px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Highlight: Custom Pipeline Risk Assessor -->
+            <div class="rounded-[2rem] p-6 sm:p-10 border border-white/50 glass soft-shadow space-y-8">
+                <div class="text-center sm:text-left space-y-1">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-[#A87E82] font-semibold block">Conceptual Diagnosis Tool</span>
+                    <h3 class="text-2xl sm:text-3xl font-light text-[#3C2D35]">Big Data Setup Risk Assessor</h3>
+                    <p class="text-xs text-gray-500">Tailor the inputs below to calculate the impact of structural complexities on a system's overall vulnerability profile.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <!-- Controls Column -->
+                    <div class="space-y-6">
+                        <!-- Control 1 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <label class="text-gray-700 font-medium">Data Source Integration Complexity</label>
+                                <span class="text-[#A87E82] font-semibold" id="lbl-sources">Multiple Relays</span>
+                            </div>
+                            <input type="range" min="1" max="3" value="2" id="calc-sources" oninput="calculateRisk()" class="w-full h-1 bg-[#FAF6F0] rounded-lg appearance-none cursor-pointer accent-[#A87E82]">
+                        </div>
+                        <!-- Control 2 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <label class="text-gray-700 font-medium">Primary Storage Ecosystem</label>
+                                <span class="text-[#9D76A6] font-semibold" id="lbl-storage">Hybrid Cloud Nodes</span>
+                            </div>
+                            <input type="range" min="1" max="3" value="2" id="calc-storage" oninput="calculateRisk()" class="w-full h-1 bg-[#FAF6F0] rounded-lg appearance-none cursor-pointer accent-[#9D76A6]">
+                        </div>
+                        <!-- Control 3 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <label class="text-gray-700 font-medium">Validation & Access Control Level</label>
+                                <span class="text-[#69A297] font-semibold" id="lbl-access">Moderate RBAC</span>
+                            </div>
+                            <input type="range" min="1" max="3" value="2" id="calc-access" oninput="calculateRisk()" class="w-full h-1 bg-[#FAF6F0] rounded-lg appearance-none cursor-pointer accent-[#69A297]">
+                        </div>
+                        <!-- Control 4 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs">
+                                <label class="text-gray-700 font-medium">Data Stream Flow Speed</label>
+                                <span class="text-[#C28C5E] font-semibold" id="lbl-stream">High Batch Relays</span>
+                            </div>
+                            <input type="range" min="1" max="3" value="2" id="calc-stream" oninput="calculateRisk()" class="w-full h-1 bg-[#FAF6F0] rounded-lg appearance-none cursor-pointer accent-[#C28C5E]">
+                        </div>
+                    </div>
+
+                    <!-- Visual Results Ring -->
+                    <div class="bg-white/40 border border-[#E8C5C8]/30 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center space-y-4">
+                        <div class="relative w-36 h-36 flex items-center justify-center rounded-full bg-white border border-[#E8C5C8]/50 shadow-sm" id="risk-border">
+                            <div class="text-center space-y-0.5">
+                                <span class="block text-4xl font-light text-[#3C2D35]" id="risk-score">65%</span>
+                                <span class="text-[9px] text-[#A87E82] uppercase tracking-[0.2em] font-bold">Vulnerability</span>
+                            </div>
+                        </div>
+                        <div class="space-y-1 max-w-sm">
+                            <h4 class="font-normal text-lg text-[#3C2D35]" id="risk-level-lbl">System Risk Profile: Moderate</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed font-light" id="risk-desc-lbl">
+                                Multi-layer processing nodes with standard encryption levels provide base safety but allow localized exploits. Focus validation steps.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Literary Abstract Section -->
+            <div id="quick-digest" class="grid grid-cols-1 lg:grid-cols-3 gap-10 pt-8 border-t border-[#E8C5C8]/40">
+                <div class="lg:col-span-2 space-y-4 text-gray-600 text-sm leading-relaxed font-light">
+                    <h3 class="text-2xl sm:text-3xl text-[#3C2D35] font-light">The Narrative Summary</h3>
+                    <p>
+                        Over the last few years, big data has become an integral part of today’s digital platform expansion. From healthcare portals to advanced IoT setups, massive volumes of data are collected to build better strategic decisions. While highly advantageous, storing, transmitting, and manipulating sensitive details regularly held on network-connected servers opens severe cyber threats.
+                    </p>
+                    <p>
+                        Through a critical lens, this exhibition parses three interconnected security issues: the vulnerabilities embedded in massive <span class="italic text-[#A87E82] font-medium">infrastructures and value chains</span>, the widespread dilemma of <span class="italic text-[#9D76A6] font-medium">privacy infringement</span>, and the complex engineering of <span class="italic text-[#69A297] font-medium">data integrity and access control</span>.
+                    </p>
+                </div>
+                <!-- Premium Quoted Insight Card -->
+                <div class="bg-gradient-to-br from-[#FFF0F2] via-white to-[#FAF6F0] p-8 rounded-3xl border border-white flex flex-col justify-between shadow-sm relative overflow-hidden">
+                    <div class="absolute top-2 right-4 text-[#E8C5C8]/20 font-serif text-8xl pointer-events-none">“</div>
+                    <div class="space-y-4 relative z-10">
+                        <span class="text-[10px] uppercase tracking-widest font-bold text-[#A87E82]">Essay Insight</span>
+                        <p class="text-[#3C2D35] italic font-light text-sm leading-relaxed">
+                            Confidential information is regularly held, transmitted, and manipulated through internet-based technologies linked to networks. Cyber threats, data privacy issues, security breaches, and data leakage have become a problem not just for institutions but also for individuals.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#E8C5C8]/30 mt-6 flex justify-between items-center">
+                        <span class="text-[10px] font-bold tracking-widest text-[#A87E82] uppercase">Securing Big Data</span>
+                        <i class="fa-solid fa-sparkles text-[#D4AF37] text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cozy Testimonials / Expert Voices section -->
+            <div class="bg-white/45 border border-white/60 rounded-[2rem] p-8 sm:p-12 text-center space-y-6 max-w-4xl mx-auto soft-shadow">
+                <span class="text-[#A87E82] uppercase text-[10px] tracking-[0.2em] font-bold">Expert Perspectives</span>
+                <div class="space-y-4">
+                    <p class="text-lg sm:text-2xl text-[#3C2D35] font-light leading-relaxed italic">
+                        "Applying access checks on streaming inputs and heterogeneous storage files remains a high-wire balance for contemporary network engineers."
+                    </p>
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs uppercase font-bold tracking-widest text-[#3C2D35]">Tilahun & Tsegaye</span>
+                        <span class="text-[10px] text-gray-500 font-light mt-0.5">The Systematic Security Review (2022)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: INFRASTRUCTURE & VALUE CHAIN ================= -->
+        <section id="tab-infrastructure" class="space-y-12 hidden">
+            <!-- Header section -->
+            <div class="space-y-3 text-center sm:text-left">
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#A87E82]">Section 01</span>
+                <h2 class="text-4xl sm:text-5xl font-light text-[#3C2D35]">Infrastructure & Value Chain Vulnerabilities</h2>
+                <p class="text-gray-500 text-sm max-w-3xl font-light leading-relaxed">
+                    Expanding integrations across cloud systems, external vendors, and distributed networks drastically widen the active attack surface. Security fails not just in the database layers, but across the entire lifecycle chain.
+                </p>
+            </div>
+
+            <!-- Segment Showcase (The Interactive Steps) -->
+            <div class="rounded-3xl p-6 sm:p-10 border border-white/60 glass soft-shadow space-y-10">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-[#E8C5C8]/40 pb-5">
+                    <h3 class="text-2xl font-light text-[#3C2D35]">Interactive Value Chain Map</h3>
+                    <span class="text-[10px] tracking-widest uppercase text-[#A87E82] font-semibold mt-1 sm:mt-0 flex items-center gap-1.5">
+                        <i class="fa-solid fa-hand-pointer animate-bounce"></i> Click any process step to expand the details
+                    </span>
+                </div>
+
+                <!-- Step Tabs Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Step 1 -->
+                    <div onclick="selectInfraSegment('ingest')" id="segment-ingest" class="cursor-pointer border border-[#E8C5C8] bg-[#FFF0F2]/55 rounded-2xl p-6 transition-all duration-300 text-center space-y-3 relative group shadow-sm">
+                        <div class="absolute -top-3 left-4 bg-[#E8C5C8] text-white text-[9px] uppercase tracking-wider font-extrabold px-3 py-0.5 rounded-full">Phase 1</div>
+                        <i class="fa-solid fa-cloud-arrow-down text-2xl text-[#A87E82] pt-2"></i>
+                        <h4 class="font-normal text-lg text-[#3C2D35]">Data Ingestion</h4>
+                        <p class="text-[11px] text-gray-500 font-light">Capturing feeds from smart endpoints and web sensors.</p>
+                        <div class="w-full bg-[#E8C5C8]/20 h-1 rounded-full mt-2">
+                            <div class="bg-[#A87E82] h-full rounded-full w-full"></div>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div onclick="selectInfraSegment('transit')" id="segment-transit" class="cursor-pointer border border-white/40 bg-white/20 rounded-2xl p-6 transition-all duration-300 text-center space-y-3 relative group shadow-sm">
+                        <div class="absolute -top-3 left-4 bg-gray-300 text-white text-[9px] uppercase tracking-wider font-extrabold px-3 py-0.5 rounded-full" id="tag-transit">Phase 2</div>
+                        <i class="fa-solid fa-shield-halved text-2xl text-gray-400 pt-2" id="icon-transit"></i>
+                        <h4 class="font-normal text-lg text-[#3C2D35]">Transit Pipelines</h4>
+                        <p class="text-[11px] text-gray-500 font-light">Collaborations and active message-broker relays.</p>
+                        <div class="w-full bg-gray-200 h-1 rounded-full mt-2">
+                            <div class="bg-gray-400 h-full rounded-full w-0" id="bar-transit"></div>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div onclick="selectInfraSegment('storage')" id="segment-storage" class="cursor-pointer border border-white/40 bg-white/20 rounded-2xl p-6 transition-all duration-300 text-center space-y-3 relative group shadow-sm">
+                        <div class="absolute -top-3 left-4 bg-gray-300 text-white text-[9px] uppercase tracking-wider font-extrabold px-3 py-0.5 rounded-full" id="tag-storage">Phase 3</div>
+                        <i class="fa-solid fa-database text-2xl text-gray-400 pt-2" id="icon-storage"></i>
+                        <h4 class="font-normal text-lg text-[#3C2D35]">Lakes & Storage</h4>
+                        <p class="text-[11px] text-gray-500 font-light">NoSQL structures and distributed cloud clusters.</p>
+                        <div class="w-full bg-gray-200 h-1 rounded-full mt-2">
+                            <div class="bg-gray-400 h-full rounded-full w-0" id="bar-storage"></div>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div onclick="selectInfraSegment('analysis')" id="segment-analysis" class="cursor-pointer border border-white/40 bg-white/20 rounded-2xl p-6 transition-all duration-300 text-center space-y-3 relative group shadow-sm">
+                        <div class="absolute -top-3 left-4 bg-gray-300 text-white text-[9px] uppercase tracking-wider font-extrabold px-3 py-0.5 rounded-full" id="tag-analysis">Phase 4</div>
+                        <i class="fa-solid fa-wand-magic-sparkles text-2xl text-gray-400 pt-2" id="icon-analysis"></i>
+                        <h4 class="font-normal text-lg text-[#3C2D35]">Analysis Engines</h4>
+                        <p class="text-[11px] text-gray-500 font-light">Machine Learning training and predictive computations.</p>
+                        <div class="w-full bg-gray-200 h-1 rounded-full mt-2">
+                            <div class="bg-gray-400 h-full rounded-full w-0" id="bar-analysis"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deep-Dive Expanded Information Cabinet -->
+                <div class="bg-white/55 border border-white rounded-2xl p-6 sm:p-8 space-y-5" id="infra-panel">
+                    <div class="flex flex-wrap justify-between items-center gap-3">
+                        <span class="text-xs uppercase tracking-widest text-[#A87E82] font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-circle text-[6px] animate-pulse"></i> Ingestion Security Spotlight
+                        </span>
+                        <div class="text-[11px] text-gray-500 font-medium">Research Scope: <span class="italic text-[#3C2D35] font-bold">Abouelmehdi et al. (2017)</span></div>
+                    </div>
+                    
+                    <h3 class="text-2xl sm:text-3xl font-light text-[#3C2D35]" id="infra-title">Vulnerabilities in Diverse Generation Nodes</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 leading-relaxed font-light" id="infra-desc">
+                        As healthcare organizations, smart hardware providers, and external vendors deploy massive nets of decentralized input points, establishing a solid boundary is nearly impossible. High-frequency streaming sensors often lack modern encryption protocols, allowing malicious players to sniff data streams.
+                    </p>
+
+                    <!-- Technical Structural details -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3">
+                        <div class="bg-white/85 p-4 rounded-xl border border-[#E8C5C8]/30 space-y-1">
+                            <span class="text-[9px] text-[#A87E82] font-bold uppercase tracking-wider block">Structural Failure Point</span>
+                            <p class="text-xs text-gray-600 font-light" id="infra-structural">Unverified endpoint identifiers and thin encryption layers on local capture sensors.</p>
+                        </div>
+                        <div class="bg-white/85 p-4 rounded-xl border border-[#E8C5C8]/30 space-y-1">
+                            <span class="text-[9px] text-[#C28C5E] font-bold uppercase tracking-wider block">Associated Cyber Hazard</span>
+                            <p class="text-xs text-gray-600 font-light" id="infra-threat">Man-in-the-Middle stream eavesdropping, key extraction, and packet injection.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Information: Infrastructure Deep Dossier -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Conceptual Deep-Dive -->
+                <div class="glass p-8 rounded-3xl space-y-6">
+                    <h3 class="text-2xl font-light text-[#3C2D35]">Deep Dossier: The Connected Ecosystem Vulnerability</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">
+                        Our research identifies a core pattern: today's digital infrastructure is characterized by intense collaborations, connecting third-party analytics hubs, edge APIs, and cloud-hosted storage blocks. This high connectivity forms a delicate web where the weak points of partnering systems instantly translate into vulnerabilities for the main core.
+                    </p>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">
+                        Furthermore, the issue is not just about raw data exposure; it extends to the tools, databases, and computational interfaces (NoSQL repositories, ETL pipelines, analytics software) deployed to handle it. In many scenarios, the tools and configurations are easier to crack than the database systems.
+                    </p>
+                    <div class="p-4 rounded-2xl bg-[#FFF0F2]/45 border border-[#E8C5C8]/40 flex gap-3 items-start">
+                        <i class="fa-solid fa-sparkles text-[#D4AF37] text-sm mt-0.5"></i>
+                        <p class="text-[11px] text-[#3C2D35] font-light italic leading-relaxed">
+                            "The incorporation of numerous data sources, as well as the emergence of multiple technologies employed in storing and processing data, has created new security threats that affect all phases of the data value chain."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Strategic Response Dossier -->
+                <div class="glass p-8 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] uppercase font-bold text-[#A87E82] tracking-widest">Recommended Actions</span>
+                        <h3 class="text-2xl font-light text-[#3C2D35]">Infrastructure Hardening Blueprint</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed">
+                            Transitioning big data infrastructures from passive observation to proactive defense requires structural improvements:
+                        </p>
+                        <ul class="space-y-3 pt-2">
+                            <li class="flex items-start gap-2.5 text-xs text-gray-600 font-light">
+                                <i class="fa-solid fa-circle-check text-[#A87E82] text-xs mt-0.5"></i>
+                                <span><strong>Zero-Trust Tokenization:</strong> Treat every external vendor and third-party data lake relay as untrusted.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 text-xs text-gray-600 font-light">
+                                <i class="fa-solid fa-circle-check text-[#A87E82] text-xs mt-0.5"></i>
+                                <span><strong>Continuous Endpoint Proofing:</strong> Apply cryptographically signed identifier tokens to all sensors.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 text-xs text-gray-600 font-light">
+                                <i class="fa-solid fa-circle-check text-[#A87E82] text-xs mt-0.5"></i>
+                                <span><strong>Value Chain Audits:</strong> Formulate automated validation scans over partner pipelines and NoSQL storage parameters.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 border-t border-[#E8C5C8]/30 flex justify-between items-center mt-6">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Architecture Focus</span>
+                        <span class="text-xs text-[#A87E82] font-semibold italic">End-to-End Cryptography</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: PRIVACY INFRINGEMENT ================= -->
+        <section id="tab-privacy" class="space-y-12 hidden">
+            <!-- Header section -->
+            <div class="space-y-3 text-center sm:text-left">
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#9D76A6]">Section 02</span>
+                <h2 class="text-4xl sm:text-5xl font-light text-[#3C2D35]">Privacy Infringement & Delicate Ratios</h2>
+                <p class="text-gray-500 text-sm max-w-3xl font-light leading-relaxed">
+                    With massive datasets comes extreme exposure risk. Basic customer profiles can be re-identified through external lookups, creating a severe operational conflict between security compliance and timely data utility.
+                </p>
+            </div>
+
+            <!-- Tradeoff Interactive visual slider module -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Slider Adjuster Column -->
+                <div class="lg:col-span-1 glass p-6 sm:p-8 rounded-3xl border border-white/50 space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="space-y-1">
+                            <h3 class="text-2xl font-light text-[#3C2D35]">Data Utility Balance</h3>
+                            <p class="text-xs text-gray-500 font-light">Drag the delicate golden handle to witness how safeguarding levels impact real-time analytics.</p>
+                        </div>
+                        
+                        <div class="py-4 space-y-4">
+                            <div class="flex justify-between text-[11px] font-bold tracking-widest uppercase text-[#9D76A6]">
+                                <span>Pure Privacy</span>
+                                <span>Pure Analytics</span>
+                            </div>
+                            <input type="range" min="0" max="100" value="50" id="util-slider" oninput="slideUtility(this.value)" class="w-full h-1 bg-[#FAF6F0] rounded-lg appearance-none cursor-pointer accent-[#9D76A6]">
+                            <div class="text-center">
+                                <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Ratio Setting:</span>
+                                <span class="text-xs text-[#3C2D35] font-semibold ml-1" id="slider-ratio">50% Utility / 50% Privacy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-[#F5EDFA]/50 rounded-2xl border border-[#D0B3D6]/40 space-y-1.5">
+                        <span class="text-[10px] text-[#9D76A6] font-bold uppercase tracking-wider block">Conceptual Correlation</span>
+                        <p class="text-xs text-gray-500 leading-relaxed font-light" id="slider-critique">
+                            At mid-point settings, standard privacy masking restricts deep patterns. Analytical systems still report modest trends.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Live Visual Feedback Display Card -->
+                <div class="lg:col-span-2 glass p-6 sm:p-8 rounded-3xl border border-[#D0B3D6]/40 glow-purple flex flex-col justify-between space-y-6">
+                    <div class="flex justify-between items-center border-b border-[#E8C5C8]/30 pb-4">
+                        <span class="text-xs uppercase font-extrabold text-[#9D76A6] tracking-widest">Interactive Coexistence Meter</span>
+                        <span class="text-xs font-light text-gray-400 italic">Jain et al. (2016) Dilemma Analysis</span>
+                    </div>
+
+                    <!-- Dual Output metrics -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Left bar: Privacy -->
+                        <div class="bg-white/55 border border-white rounded-2xl p-6 space-y-4 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-normal text-lg text-[#3C2D35]">Privacy Integrity</h4>
+                                <span class="text-[9px] font-bold text-[#9D76A6] px-2 py-0.5 rounded bg-[#FAF0FF] border border-[#D0B3D6]/30" id="lbl-priv-badge">Standard Masking</span>
+                            </div>
+                            <div class="w-full bg-[#FAF6F0] rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-[#9D76A6] h-full rounded-full transition-all duration-300" id="bar-priv-fill" style="width: 50%;"></div>
+                            </div>
+                            <!-- Bullet points -->
+                            <ul class="text-xs space-y-2 text-gray-500 font-light" id="list-priv-details">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#9D76A6] text-[10px]"></i> Simple data masks strip identifiers.</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#9D76A6] text-[10px]"></i> Intermediate noise added to stored datasets.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Right bar: Utility -->
+                        <div class="bg-white/55 border border-white rounded-2xl p-6 space-y-4 shadow-sm">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-normal text-lg text-[#3C2D35]">Analytical Utility</h4>
+                                <span class="text-[9px] font-bold text-[#A87E82] px-2 py-0.5 rounded bg-[#FFF0F2] border border-[#E8C5C8]/30" id="lbl-util-badge">Intermediate Insights</span>
+                            </div>
+                            <div class="w-full bg-[#FAF6F0] rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-[#A87E82] h-full rounded-full transition-all duration-300" id="bar-util-fill" style="width: 50%;"></div>
+                            </div>
+                            <!-- Bullet points -->
+                            <ul class="text-xs space-y-2 text-gray-500 font-light" id="list-util-details">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#A87E82] text-[10px]"></i> Systems compute macro analytical patterns.</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#A87E82] text-[10px]"></i> Prediction algorithms report 85% confidence score.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Quote block -->
+                    <div class="bg-gradient-to-r from-[#FAF0FF] to-[#FFF0F2] p-4 rounded-xl border border-white/60">
+                        <p class="text-xs italic text-gray-600 leading-relaxed font-light">
+                            "With the increase in volume of information generated, privacy preservation becomes even more difficult to achieve as the complexity of modern information systems makes it difficult to keep privacy protected." — <span class="font-semibold text-[#3C2D35] not-italic">Khalid & Sumra (2023)</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Dossier Section on Privacy -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Left: More Information Dossier -->
+                <div class="glass p-8 rounded-3xl space-y-6">
+                    <h3 class="text-2xl font-light text-[#3C2D35]">Deep Dossier: The Threat of Cross-Record Linkage</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">
+                        The core threat behind big data privacy is not always a direct hacking breach of main servers. Instead, it is the exposure generated by massive **Record Linkage**. While an organization might securely mask patient names or partial addresses, secondary public databases can be cross-correlated.
+                    </p>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">
+                        Using advanced search and machine learning algorithms, attackers correlate these supposedly masked vectors with local voting records, retail transactions, or social media check-ins. In seconds, anonymized clients are accurately re-identified, exposing highly private health profiles, political ties, or financial histories.
+                    </p>
+                    <div class="p-4 bg-white/60 rounded-2xl border border-white text-xs text-gray-500 space-y-1 font-light">
+                        <span class="font-bold text-[#3C2D35] block">Research Reference Insight:</span>
+                        As analyzed by *Asaad & Abdulnabi (2022)*, the rapid adoption of connected portable gadgets in modern schools, organizations, and corporate landscapes generates high-velocity metadata lakes. This makes strict compliance auditing essential at all stages of the data lifecycle.
+                    </div>
+                </div>
+
+                <!-- Right: Three-Step Privacy Safeguard Framework -->
+                <div class="glass p-8 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] uppercase font-bold text-[#9D76A6] tracking-widest">Preservation Framework</span>
+                        <h3 class="text-2xl font-light text-[#3C2D35]">The Lifecycle Protection Standard</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed">
+                            To maintain continuous user privacy throughout storage and processing, organizations implement three distinct strategies:
+                        </p>
+                        <ul class="space-y-3 pt-2 text-xs text-gray-600 font-light">
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-[#FAF0FF] text-[#9D76A6] border border-[#D0B3D6]/40 flex items-center justify-center text-[10px] font-bold mt-0.5">1</span>
+                                <div>
+                                    <strong>Differential Privacy:</strong> Mathematically injects calculated noise into raw streams before analytics processing, protecting individual records.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-[#FAF0FF] text-[#9D76A6] border border-[#D0B3D6]/40 flex items-center justify-center text-[10px] font-bold mt-0.5">2</span>
+                                <div>
+                                    <strong>K-Anonymity Matrices:</strong> Groups records so individual properties are indistinguishable from at least *k-1* other profiles in the database.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-[#FAF0FF] text-[#9D76A6] border border-[#D0B3D6]/40 flex items-center justify-center text-[10px] font-bold mt-0.5">3</span>
+                                <div>
+                                    <strong>Homomorphic Encryption:</strong> Allows analytics engines to compute mathematical models over fully encrypted sets without exposing cleartext.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 border-t border-[#E8C5C8]/30 flex justify-between items-center mt-6">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Privacy Engineering</span>
+                        <span class="text-xs text-[#9D76A6] font-semibold italic">Confidential Computing</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4: INTEGRITY & ACCESS CONTROL ================= -->
+        <section id="tab-integrity" class="space-y-12 hidden">
+            <!-- Header section -->
+            <div class="space-y-3 text-center sm:text-left">
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-[#69A297]">Section 03</span>
+                <h2 class="text-4xl sm:text-5xl font-light text-[#3C2D35]">Data Integrity & Access Control</h2>
+                <p class="text-gray-500 text-sm max-w-3xl font-light leading-relaxed">
+                    Protecting rapid streaming repositories from silent tampering. In healthcare, finance, or retail setups, compromised data integrity harms consumer welfare and impacts organizational trust.
+                </p>
+            </div>
+
+            <!-- Access Control Stream Terminal Widget -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Controls Column -->
+                <div class="lg:col-span-1 glass p-6 sm:p-8 rounded-3xl border border-white/50 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="space-y-1">
+                            <h3 class="text-2xl font-light text-[#3C2D35]">Stream Controls</h3>
+                            <p class="text-xs text-gray-500 font-light">Simulate real-time access authentication tests on continuous data flows.</p>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <button onclick="simulateNormalPacket()" class="w-full bg-[#69A297] hover:bg-[#528178] text-white font-semibold py-3 rounded-full text-xs uppercase tracking-widest transition duration-200 flex items-center justify-center gap-2 shadow-md shadow-[#69A297]/10">
+                                <i class="fa-solid fa-play text-[10px]"></i> Inject Verified Stream
+                            </button>
+                            <button onclick="simulateSpoofedPacket()" class="w-full bg-[#C87D82] hover:bg-[#B36268] text-white font-semibold py-3 rounded-full text-xs uppercase tracking-widest transition duration-200 flex items-center justify-center gap-2 shadow-md">
+                                <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> Inject Spoofed Packet
+                            </button>
+                            <button onclick="toggleValidationFilters()" id="btn-validation-toggle" class="w-full bg-white border border-[#A4D4CC]/40 text-gray-600 font-semibold py-3 rounded-full text-xs uppercase tracking-widest transition duration-200 flex items-center justify-center gap-2 hover:bg-[#FAF6F0]">
+                                <i class="fa-solid fa-circle-check text-[#69A297]" id="icon-val"></i> Security Filters: <span id="lbl-val" class="text-[#69A297]">ENABLED</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-[#F0FAF7]/50 rounded-2xl border border-[#A4D4CC]/40 space-y-1.5">
+                        <span class="text-[10px] text-[#69A297] font-bold uppercase tracking-wider block">Heterogeneous Flow</span>
+                        <p class="text-xs text-gray-500 leading-relaxed font-light">
+                            As explored by *Tilahun & Tsegaye (2022)*, applying standard validation models across diverse, unstructured data is a major scale issue.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Soft Interactive Glass Terminal Screen -->
+                <div class="lg:col-span-2 glass border border-[#A4D4CC]/30 glow-emerald rounded-3xl p-6 sm:p-8 space-y-5">
+                    <div class="flex items-center justify-between border-b border-[#E8C5C8]/30 pb-4">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-3 h-3 rounded-full bg-[#69A297] animate-pulse"></div>
+                            <span class="text-xs uppercase font-extrabold tracking-widest text-[#69A297]">Stream Verification Log</span>
+                        </div>
+                        <button onclick="clearTerminalLogs()" class="text-xs text-gray-400 hover:text-[#3C2D35] transition"><i class="fa-solid fa-trash-can mr-1"></i> Clear</button>
+                    </div>
+
+                    <!-- Soft Terminal screen area -->
+                    <div class="bg-white/45 rounded-2xl p-5 border border-white font-mono text-[11px] text-[#3C2D35]/80 h-64 overflow-y-auto custom-scrollbar space-y-2.5 shadow-inner" id="terminal-logs">
+                        <div class="text-gray-400">[SYSTEM] Initialization completed. Access Control Policy Engine running...</div>
+                        <div class="text-gray-400">[SYSTEM] Watching continuous NoSQL datasets (Token Check: ACTIVE).</div>
+                    </div>
+
+                    <!-- Counter indicators -->
+                    <div class="grid grid-cols-3 gap-4 text-center pt-2">
+                        <div class="bg-white/55 p-3 rounded-xl border border-white shadow-sm">
+                            <span class="block text-2xl font-light text-[#3C2D35]" id="cnt-passed">0</span>
+                            <span class="text-[9px] text-gray-400 uppercase font-semibold">Authorized</span>
+                        </div>
+                        <div class="bg-white/55 p-3 rounded-xl border border-white shadow-sm">
+                            <span class="block text-2xl font-light text-[#C87D82]" id="cnt-failed">0</span>
+                            <span class="text-[9px] text-gray-400 uppercase font-semibold">Blocked Attempts</span>
+                        </div>
+                        <div class="bg-white/55 p-3 rounded-xl border border-white shadow-sm">
+                            <span class="block text-2xl font-light text-amber-600" id="cnt-integrity">0</span>
+                            <span class="text-[9px] text-gray-400 uppercase font-semibold">Alarms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Dossier Section on Integrity & Access -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Left: More Information Dossier -->
+                <div class="glass p-8 rounded-3xl space-y-6">
+                    <h3 class="text-2xl font-light text-[#3C2D35]">Deep Dossier: The Danger of Silent Manipulation</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">
+                        Unlike catastrophic encryption leaks, attacks on **Data Integrity** can occur silently over long periods. Malicious actors access databases without lockouts and modify data parameters in minor ways (e.g., swapping patient blood records or tweaking scientific sensor values).
+                    </p>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">
+                        Because these changes avoid triggering typical alerts, they bypass traditional security layers. These corrupted feeds then train artificial intelligence models or guide business plans, leading to flawed decisions.
+                    </p>
+                    <div class="p-4 bg-white/60 rounded-2xl border border-white text-xs text-gray-500 space-y-1 font-light">
+                        <span class="font-bold text-[#3C2D35] block">Strategic Corporate Vulnerability:</span>
+                        For financial platforms, healthcare clinics, and business setups, the cost of corrupted data exceeds that of standard system lockouts (*Atoum & Keshta, 2021*).
+                    </div>
+                </div>
+
+                <!-- Right: Active Authentication Strategies -->
+                <div class="glass p-8 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] uppercase font-bold text-[#69A297] tracking-widest">Active Solutions</span>
+                        <h3 class="text-2xl font-light text-[#3C2D35]">Dynamic Authorization & Signing</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed">
+                            Ensuring secure data flow requires moving past simple access credentials:
+                        </p>
+                        <ul class="space-y-3 pt-2 text-xs text-gray-600 font-light">
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-[#F0FAF7] text-[#69A297] border border-[#A4D4CC]/40 flex items-center justify-center text-[10px] font-bold mt-0.5">1</span>
+                                <div>
+                                    <strong>Attribute-Based Access Control (ABAC):</strong> Validates user identities, device coordinates, and timestamps before processing queries.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-[#F0FAF7] text-[#69A297] border border-[#A4D4CC]/40 flex items-center justify-center text-[10px] font-bold mt-0.5">2</span>
+                                <div>
+                                    <strong>Message Authentication Codes (MAC):</strong> Uses cryptographic checksum keys to ensure data streams remain untampered in transit.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-full bg-[#F0FAF7] text-[#69A297] border border-[#A4D4CC]/40 flex items-center justify-center text-[10px] font-bold mt-0.5">3</span>
+                                <div>
+                                    <strong>Tamper-Evident Ledger Hashing:</strong> Chains stream packets to immutable ledger records to detect data alterations.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-6 border-t border-[#E8C5C8]/30 flex justify-between items-center mt-6">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Data Integrity Strategy</span>
+                        <span class="text-xs text-[#69A297] font-semibold italic">Cryptographic Audits</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[#E8C5C8]/30 bg-white/20 backdrop-blur-md py-10 text-center text-xs text-gray-500 space-y-3">
+        <div class="flex justify-center space-x-5 text-[#A87E82]/70">
+            <a href="#" class="hover:text-[#A87E82] transition"><i class="fa-brands fa-pinterest-p text-sm"></i></a>
+            <a href="#" class="hover:text-[#A87E82] transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+            <a href="#" class="hover:text-[#A87E82] transition"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+        </div>
+        <p class="font-light">&copy; 2026. The Security Atelier. Designed with a soft, minimalist, luxury design.</p>
+        <p class="text-[9px] tracking-wider text-gray-400 font-light uppercase">Constructed around core big data security principles</p>
+    </footer>
+
+    <!-- INTERACTIVE STATES SCRIPT -->
+    <script>
+        // Page Navigation
+        function switchTab(targetTab) {
+            // Hide all tab containers
+            document.getElementById('tab-home').style.display = 'none';
+            document.getElementById('tab-infrastructure').style.display = 'none';
+            document.getElementById('tab-privacy').style.display = 'none';
+            document.getElementById('tab-integrity').style.display = 'none';
+
+            // Show active tab container
+            document.getElementById('tab-' + targetTab).style.display = 'block';
+
+            // Style active Navigation button
+            const desktopButtons = document.querySelectorAll('.nav-btn');
+            desktopButtons.forEach(btn => {
+                if (btn.getAttribute('data-tab') === targetTab) {
+                    btn.className = "nav-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-[#A87E82] bg-white/75 border border-[#E8C5C8]/40 shadow-sm";
+                } else {
+                    btn.className = "nav-btn px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 text-gray-500 hover:text-[#3C2D35] hover:bg-white/45";
+                }
+            });
+
+            // Style active Mobile Navigation button
+            const mobileButtons = document.querySelectorAll('#mobile-menu button');
+            mobileButtons.forEach(btn => {
+                if (btn.getAttribute('data-mobile-tab') === targetTab) {
+                    btn.className = "w-full text-left px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase text-[#A87E82] block bg-white/70";
+                } else {
+                    btn.className = "w-full text-left px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase text-gray-500 hover:text-[#3C2D35] block";
+                }
+            });
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Mobile Menu open/close
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = "fa-solid fa-xmark text-xl";
+            } else {
+                menu.classList.add('hidden');
+                icon.className = "fa-solid fa-bars-staggered text-xl";
+            }
+        }
+
+        // Section 1: Setup Risk Assessor Logic
+        function calculateRisk() {
+            const src = parseInt(document.getElementById('calc-sources').value);
+            const stg = parseInt(document.getElementById('calc-storage').value);
+            const acc = parseInt(document.getElementById('calc-access').value);
+            const stm = parseInt(document.getElementById('calc-stream').value);
+
+            // Set visual tags
+            const labelsSources = ["Single Relay", "Multiple Relays", "Highly Distributed IoT Network"];
+            const labelsStorage = ["Strict Local Server", "Hybrid Cloud Nodes", "Decentralized Public Lakes"];
+            const labelsAccess = ["Strict Token ABAC", "Moderate RBAC", "Open / Minimal Filter Layer"];
+            const labelsStream = ["Batch Transmit (Low)", "High Batch Relays", "Real-time High Velocity Streams"];
+
+            document.getElementById('lbl-sources').innerText = labelsSources[src-1];
+            document.getElementById('lbl-storage').innerText = labelsStorage[stg-1];
+            document.getElementById('lbl-access').innerText = labelsAccess[acc-1];
+            document.getElementById('lbl-stream').innerText = labelsStream[stm-1];
+
+            // Modified score calculation (inverse access index to represent security protection)
+            const modifiedAccess = (4 - acc); 
+            const totalPoints = src + stg + modifiedAccess + stm;
+            const calcPercent = Math.round((totalPoints / 12) * 100);
+
+            const scoreDisplay = document.getElementById('risk-score');
+            const statusLabel = document.getElementById('risk-level-lbl');
+            const descLabel = document.getElementById('risk-desc-lbl');
+            const borderRing = document.getElementById('risk-border');
+
+            scoreDisplay.innerText = calcPercent + "%";
+
+            if (calcPercent < 45) {
+                statusLabel.innerText = "System Risk Profile: Minimal";
+                statusLabel.className = "font-normal text-lg text-[#69A297]";
+                descLabel.innerText = "Your infrastructure utilizes localized storage, high-fidelity ABAC controls, and limited external relays. The attack surface remains tightly secured.";
+                borderRing.className = "relative w-36 h-36 flex items-center justify-center rounded-full bg-white border-4 border-[#69A297]/30 shadow-sm";
+            } else if (calcPercent < 75) {
+                statusLabel.innerText = "System Risk Profile: Moderate";
+                statusLabel.className = "font-normal text-lg text-[#C28C5E]";
+                descLabel.innerText = "Multi-layer processing nodes with standard encryption levels provide base safety but allow localized exploits. Focus validation steps.";
+                borderRing.className = "relative w-36 h-36 flex items-center justify-center rounded-full bg-white border-4 border-[#C28C5E]/30 shadow-sm";
+            } else {
+                statusLabel.innerText = "System Risk Profile: Critical";
+                statusLabel.className = "font-normal text-lg text-[#C87D82]";
+                descLabel.innerText = "Decentralized IoT generation coupled with serverless cloud repositories and minimal query filters results in widespread exposure risk.";
+                borderRing.className = "relative w-36 h-36 flex items-center justify-center rounded-full bg-white border-4 border-[#C87D82]/30 shadow-sm";
+            }
+        }
+
+        // Section 2: Interactive Pipeline step selectors & data
+        const infraData = {
+            ingest: {
+                title: "Vulnerabilities in Diverse Generation Nodes",
+                desc: "As healthcare organizations, smart hardware providers, and external vendors deploy massive nets of decentralized input points, establishing a solid boundary is nearly impossible. High-frequency streaming sensors often lack modern encryption protocols, allowing malicious players to sniff data streams.",
+                structural: "Unverified endpoint identifiers and thin encryption layers on local capture sensors.",
+                threat: "Man-in-the-Middle stream eavesdropping, key extraction, and packet injection.",
+                author: "Abouelmehdi et al. (2017)"
+            },
+            transit: {
+                title: "Exposed Relays & Pipeline Interconnections",
+                desc: "Data must flow through intermediate message brokers to reach central engines. Traditional databases are secured, but active message channels or data-broker files can be easily compromised without end-to-end encryption protocols.",
+                structural: "Inadequate TLS configurations on distributed transit relays and intermediate storage caches.",
+                threat: "Passive packet sniffling, meta-tracking, and systematic collection of customer metadata.",
+                author: "Faroukhi et al. (2020)"
+            },
+            storage: {
+                title: "Distributed Cloud Pools & Storage Vulnerability",
+                desc: "Managing massive datasets requires distributed NoSQL servers or serverless storage pools. Without precise access-control layers, open databases allow unauthorized users to extract sensitive profiles.",
+                structural: "Overly permissive NoSQL query configurations and lack of centralized access audits.",
+                threat: "Silent data encryption, ransomware attacks, and complete customer profile leakage.",
+                author: "Tilahun & Tsegaye (2022)"
+            },
+            analysis: {
+                title: "Manipulating AI Engines & Computational Tools",
+                desc: "Machine learning engines run automated models over raw records. Hackers compromise security by injecting specialized, false data packets into storage systems, poisoning the analytics calculations.",
+                structural: "Lack of validation layers for streaming inputs before AI model calculation cycles.",
+                threat: "Adversarial training data poisoning, engine bypass, and analytical calculation failure.",
+                author: "Jain et al. (2016)"
+            }
+        };
+
+        function selectInfraSegment(segment) {
+            const steps = ['ingest', 'transit', 'storage', 'analysis'];
+            steps.forEach(st => {
+                const el = document.getElementById('segment-' + st);
+                const tag = document.getElementById('tag-' + st);
+                const icon = document.getElementById('icon-' + st);
+                const bar = document.getElementById('bar-' + st);
+
+                el.className = "cursor-pointer border border-white/40 bg-white/20 rounded-2xl p-6 transition-all duration-300 text-center space-y-3 relative group shadow-sm";
+                if (tag) tag.className = "absolute -top-3 left-4 bg-gray-300 text-white text-[9px] uppercase tracking-wider font-extrabold px-3 py-0.5 rounded-full";
+                if (icon) {
+                    icon.classList.remove('text-[#A87E82]', 'text-gray-400');
+                    icon.classList.add('text-gray-400');
+                }
+                if (bar) {
+                    bar.classList.remove('bg-[#A87E82]', 'w-full');
+                    bar.classList.add('bg-gray-400', 'w-0');
+                }
+            });
+
+            // Highlight targeted step
+            const activeEl = document.getElementById('segment-' + segment);
+            const activeTag = document.getElementById('tag-' + segment);
+            const activeIcon = document.getElementById('icon-' + segment);
+            const activeBar = document.getElementById('bar-' + segment);
+
+            activeEl.className = "cursor-pointer border border-[#E8C5C8] bg-[#FFF0F2]/55 rounded-2xl p-6 transition-all duration-300 text-center space-y-3 relative group shadow-sm";
+            if (activeTag) activeTag.className = "absolute -top-3 left-4 bg-[#E8C5C8] text-white text-[9px] uppercase tracking-wider font-extrabold px-3 py-0.5 rounded-full";
+            if (activeIcon) {
+                activeIcon.classList.remove('text-gray-400');
+                activeIcon.classList.add('text-[#A87E82]');
+            }
+            if (activeBar) {
+                activeBar.classList.remove('bg-gray-400', 'w-0');
+                activeBar.classList.add('bg-[#A87E82]', 'w-full');
+            }
+
+            // Populate Info cabinet with smooth transition
+            const panel = document.getElementById('infra-panel');
+            panel.style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('infra-title').innerText = infraData[segment].title;
+                document.getElementById('infra-desc').innerText = infraData[segment].desc;
+                document.getElementById('infra-structural').innerText = infraData[segment].structural;
+                document.getElementById('infra-threat').innerText = infraData[segment].threat;
+                panel.querySelector('.text-xs').innerHTML = `<i class="fa-solid fa-circle text-[6px] animate-pulse"></i> ${segment.charAt(0).toUpperCase() + segment.slice(1)} Stage Threat Matrix`;
+                panel.querySelector('.italic').innerText = infraData[segment].author;
+                panel.style.opacity = '1';
+                panel.style.transition = 'opacity 0.25s ease-in-out';
+            }, 100);
+        }
+
+        // Section 3: Privacy Preservation Tradeoff Visual Slider
+        function slideUtility(val) {
+            const ratioLabel = document.getElementById('slider-ratio');
+            const privBar = document.getElementById('bar-priv-fill');
+            const utilBar = document.getElementById('bar-util-fill');
+            const privBadge = document.getElementById('lbl-priv-badge');
+            const utilBadge = document.getElementById('lbl-util-badge');
+            const privList = document.getElementById('list-priv-details');
+            const utilList = document.getElementById('list-util-details');
+            const critiqueMsg = document.getElementById('slider-critique');
+
+            const utilVal = val;
+            const privVal = 100 - val;
+
+            ratioLabel.innerText = `${utilVal}% Utility / ${privVal}% Privacy`;
+            privBar.style.width = privVal + '%';
+            utilBar.style.width = utilVal + '%';
+
+            if (val < 30) {
+                // High Privacy setting
+                privBadge.innerText = "Robust Privacy Safeguards";
+                privBadge.className = "text-[9px] font-bold text-[#69A297] px-2 py-0.5 rounded bg-[#F0FAF7] border border-[#A4D4CC]/30";
+                utilBadge.innerText = "Low Utility Performance";
+                utilBadge.className = "text-[9px] font-bold text-[#C87D82] px-2 py-0.5 rounded bg-[#FFF0F2] border border-[#E8C5C8]/30";
+
+                privList.innerHTML = `
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#69A297] text-[10px]"></i> Calculated noise injected into stream queries.</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#69A297] text-[10px]"></i> Client identity is completely safeguarded.</li>
+                `;
+                utilList.innerHTML = `
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-[#C87D82] text-[10px]"></i> AI model reporting is significantly degraded.</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-[#C87D82] text-[10px]"></i> Analytics precision drops below 55% accuracy.</li>
+                `;
+                critiqueMsg.innerText = "Under high privacy settings, computational models receive heavily degraded datasets. This blocks timely analytics and delays business predictions (*Asaad & Abdulnabi, 2022*).";
+            } else if (val <= 70) {
+                // Balanced setting
+                privBadge.innerText = "Standard Masking Layer";
+                privBadge.className = "text-[9px] font-bold text-[#9D76A6] px-2 py-0.5 rounded bg-[#FAF0FF] border border-[#D0B3D6]/30";
+                utilBadge.innerText = "Intermediate Insights";
+                utilBadge.className = "text-[9px] font-bold text-[#A87E82] px-2 py-0.5 rounded bg-[#FFF0F2] border border-[#E8C5C8]/30";
+
+                privList.innerHTML = `
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#9D76A6] text-[10px]"></i> Basic attributes (IDs, names) are masked.</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#9D76A6] text-[10px]"></i> Threat of re-identification via external data linkage.</li>
+                `;
+                utilList.innerHTML = `
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#A87E82] text-[10px]"></i> Systems compute macro analytical patterns.</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#A87E82] text-[10px]"></i> Prediction algorithms report 85% confidence score.</li>
+                `;
+                critiqueMsg.innerText = "Standard balanced setting. While direct indicators are masked, malicious players can still correlate metadata files to re-identify clients (*Jain et al., 2016*).";
+            } else {
+                // High Utility setting
+                privBadge.innerText = "Critical Exposure Risk";
+                privBadge.className = "text-[9px] font-bold text-[#C87D82] px-2 py-0.5 rounded bg-[#FFF0F2] border border-[#E8C5C8]/30";
+                utilBadge.innerText = "High-Fidelity Realtime";
+                utilBadge.className = "text-[9px] font-bold text-[#69A297] px-2 py-0.5 rounded bg-[#F0FAF7] border border-[#A4D4CC]/30";
+
+                privList.innerHTML = `
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-[#C87D82] text-[10px]"></i> Unstructured profiles exposed to raw transit.</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-[#C87D82] text-[10px]"></i> Direct leaks of customer datasets probable.</li>
+                `;
+                utilList.innerHTML = `
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#69A297] text-[10px]"></i> Realtime engines analyze exact parameters.</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-[#69A297] text-[10px]"></i> Flawless AI model calculation speeds.</li>
+                `;
+                critiqueMsg.innerText = "Maximized utility settings provide accurate real-time forecasts. However, database systems hold cleartext details, raising the risk of critical privacy breaches (*Khalid & Sumra, 2023*).";
+            }
+        }
+
+        // Section 4: Access Control Stream Simulator Terminal Logic
+        let verifiedCount = 0;
+        let blockedCount = 0;
+        let integrityCount = 0;
+        let validationActive = true;
+
+        // Injects normal authorized streaming data packets
+        function simulateNormalPacket() {
+            const logs = document.getElementById('terminal-logs');
+            const timeStr = new Date().toLocaleTimeString();
+            const transactionID = Math.floor(Math.random() * 80000) + 10000;
+
+            const entry = document.createElement('div');
+            entry.className = "text-[#69A297]";
+            entry.innerHTML = `[${timeStr}] <i class="fa-solid fa-circle-check text-[9px]"></i> [TRANS_${transactionID}] Source: MedicalIoT_09 | Authentication Token: VALID | Integrity Audit: PASSED`;
+            
+            logs.appendChild(entry);
+            logs.scrollTop = logs.scrollHeight;
+
+            verifiedCount++;
+            document.getElementById('cnt-passed').innerText = verifiedCount;
+        }
+
+        // Injects abnormal/spoofed streaming data packets
+        function simulateSpoofedPacket() {
+            const logs = document.getElementById('terminal-logs');
+            const timeStr = new Date().toLocaleTimeString();
+            const transactionID = Math.floor(Math.random() * 80000) + 10000;
+
+            const entry = document.createElement('div');
+
+            if (validationActive) {
+                entry.className = "text-[#C87D82] font-semibold";
+                entry.innerHTML = `[${timeStr}] <i class="fa-solid fa-shield-halved text-[9px]"></i> [DENIED] [TRANS_${transactionID}] Source: Untrusted_IP_Relay | Action: BLOCKED | Reason: Sign Key Mismatch`;
+                blockedCount++;
+                document.getElementById('cnt-failed').innerText = blockedCount;
+            } else {
+                entry.className = "text-amber-600 font-semibold animate-pulse";
+                entry.innerHTML = `[${timeStr}] <i class="fa-solid fa-circle-exclamation text-[9px]"></i> [ALERT] [TRANS_${transactionID}] Source: SpoofedNode_99 | Action: COMPROMISED (Filters Disabled) | Integrity: ALTERED`;
+                integrityCount++;
+                document.getElementById('cnt-integrity').innerText = integrityCount;
+            }
+
+            logs.appendChild(entry);
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        // Toggles validation filtering algorithms
+        function toggleValidationFilters() {
+            const btn = document.getElementById('btn-validation-toggle');
+            const icon = document.getElementById('icon-val');
+            const lbl = document.getElementById('lbl-val');
+            const logs = document.getElementById('terminal-logs');
+            const timeStr = new Date().toLocaleTimeString();
+
+            validationActive = !validationActive;
+
+            if (validationActive) {
+                lbl.innerText = "ENABLED";
+                lbl.className = "text-[#69A297]";
+                icon.className = "fa-solid fa-circle-check text-[#69A297]";
+                btn.className = "w-full bg-white border border-[#A4D4CC]/40 text-gray-600 font-semibold py-3 rounded-full text-xs uppercase tracking-widest transition duration-200 flex items-center justify-center gap-2 hover:bg-[#FAF6F0]";
+                
+                const sysLog = document.createElement('div');
+                sysLog.className = "text-[#A87E82] font-semibold";
+                sysLog.innerHTML = `[${timeStr}] [SYSTEM] Policies re-enforced. Message Authentication and dynamic signature validation filter is ACTIVE.`;
+                logs.appendChild(sysLog);
+            } else {
+                lbl.innerText = "DISABLED";
+                lbl.className = "text-[#C87D82]";
+                icon.className = "fa-solid fa-circle-xmark text-[#C87D82]";
+                btn.className = "w-full bg-[#FFF0F2] border border-[#E8C5C8]/40 text-[#C87D82] font-semibold py-3 rounded-full text-xs uppercase tracking-widest transition duration-200 flex items-center justify-center gap-2";
+                
+                const sysLog = document.createElement('div');
+                sysLog.className = "text-[#C87D82] font-semibold";
+                sysLog.innerHTML = `[${timeStr}] [WARNING] Security validation policies disabled. Raw streaming data is exposed without access-control filters!`;
+                logs.appendChild(sysLog);
+            }
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        // Clears terminal simulation history
+        function clearTerminalLogs() {
+            const logs = document.getElementById('terminal-logs');
+            logs.innerHTML = `<div class="text-gray-400">[SYSTEM] Terminal logging cleared. Ready to record incoming database stream flows...</div>`;
+            verifiedCount = 0;
+            blockedCount = 0;
+            integrityCount = 0;
+            document.getElementById('cnt-passed').innerText = "0";
+            document.getElementById('cnt-failed').innerText = "0";
+            document.getElementById('cnt-integrity').innerText = "0";
+        }
+
+        // Initialize state on first run
+        window.onload = function() {
+            calculateRisk();
+            slideUtility(50);
+            selectInfraSegment('ingest');
+
+            // Fade out the elegant welcome overlay loader
+            setTimeout(() => {
+                const loader = document.getElementById('welcome-loader');
+                loader.classList.add('opacity-0', 'pointer-events-none');
+                // Remove from DOM layout after transition finishes
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 1000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
